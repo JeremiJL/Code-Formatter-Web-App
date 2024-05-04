@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Formatter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+
+        p {
+            text-align: center;
+            font-size: x-large;
+            margin-top: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        body {
+            font-family: Consolas;
+        }
+
+        .nav-item {
+            font-size: xx-large;
+            margin: 20px;
+        }
+
+        .btn {
+            margin-top: 20px;
+        }
+
+        label {
+            margin-top: 10px;
+        }
+
+        hr {
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            margin-bottom: 50px;
+        }
+        .row {
+            margin-bottom: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: lightgrey;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a th:href="@{/search}">Search</a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/home}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/format}">Format</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container mt-3">
+    <form method="post" action="/save" th:object="${expiration}">
+        <div class="row">
+            <p>Specify expiration time of formatted code snippet in our database</p>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Number of days" th:field="*{numDays}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Number of hours" th:field="*{numHours}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Number of minutes" th:field="*{numMinutes}">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Number of seconds" th:field="*{numSeconds}">
+            </div>
+        </div>
+
+        <p>Enter snippet id</p>
+        <input type="text" class="form-control" placeholder="Snippet id" name="snippetId">
+
+        <button type="submit" class="btn btn-outline-primary btn-lg">Save</button>
+    </form>
+
+
+
+</div>
+
+</body>
+</html>
