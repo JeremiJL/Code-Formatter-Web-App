@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head layout:fragment="myHead">
+    <meta charset="UTF-8">
+    <title>Formatter</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Override css styles -->
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/styles.css}" href="../static/stylesheets/styles.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header layout:fragment="header"></header>
+    <!-- Main content -->
+    <main layout:fragment="content"></main>
+    <!-- Footer -->
+    <header th:replace="~{fragments :: myFooter}"></header>
+
+</body>
+</html>

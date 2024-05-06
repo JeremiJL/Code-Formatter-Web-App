@@ -1,13 +1,20 @@
 package jeremi.codeformatter.Model;
 
-public class Expiration {
+public class ExpirationDTO {
 
     private int numDays;
     private int numHours;
     private int numMinutes;
     private int numSeconds;
 
-    public Expiration() {
+    public ExpirationDTO() {
+    }
+
+    public ExpirationDTO(int numDays, int numHours, int numMinutes, int numSeconds) {
+        this.numDays = numDays;
+        this.numHours = numHours;
+        this.numMinutes = numMinutes;
+        this.numSeconds = numSeconds;
     }
 
     public int getNumDays() {

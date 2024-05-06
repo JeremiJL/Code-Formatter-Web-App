@@ -27,10 +27,17 @@ public class SnippetService {
     // Formatting
     private static final Formatter formatter = new Formatter();
 
+    // Expiration input boundaries
+    private final ExpirationDTO minExpiration = new ExpirationDTO(0,0,0,10);
+    private final ExpirationDTO maxExpiration = new ExpirationDTO(90,0,0,0);
+
+
     // Removal of expired snippets
     ExpiredSnippetsCollector collector = new ExpiredSnippetsCollector();
 
     public SnippetService() {
+
+        // start the thread responsible for deleting expired snippets
         collector.start();
     }
 
@@ -42,14 +49,14 @@ public class SnippetService {
         this.draft = draft;
     }
 
-    public boolean store(String id, Expiration expiration) throws IOException {
+    public boolean store(String id, ExpirationDTO expiration) throws IOException {
 
         // Check if snippet with corresponding id is already stored
         if (isPresent(id))
             return false;
 
         // Set snippet expiration date
-        draft.setExpirationDate(calculateExpirationDate(expiration));
+        draft.setExpirationDate(calculateExpirationDate(LocalDateTime.now(), expiration));
 
         // Store serialized code snippet in file with name as snippet id
         fileOut = new FileOutputStream(snippetsDirectory + id);
@@ -96,14 +103,24 @@ public class SnippetService {
         );
     }
 
-    private LocalDateTime calculateExpirationDate(Expiration expiration){
+    private LocalDateTime calculateExpirationDate(LocalDateTime startPoint, ExpirationDTO expiration){
 
-        LocalDateTime dateOfExpiration = LocalDateTime.now();
-
-        dateOfExpiration = dateOfExpiration.plusDays(expiration.getNumDays()).plusHours(expiration.getNumHours())
+        return startPoint.plusDays(expiration.getNumDays()).plusHours(expiration.getNumHours())
                 .plusMinutes(expiration.getNumMinutes()).plusSeconds(expiration.getNumSeconds());
+    }
 
-        return dateOfExpiration;
+    public Boolean validateExpiration(ExpirationDTO expirationDTO){
+
+        LocalDateTime reference = LocalDateTime.of(1,1,1,1,1,1);
+
+        LocalDateTime desiredDateOfExpiration = calculateExpirationDate(reference,expirationDTO);
+        LocalDateTime minDateOfExpiration = calculateExpirationDate(reference,minExpiration);
+        LocalDateTime maxDateOfExpiration = calculateExpirationDate(reference,maxExpiration);
+
+        if (desiredDateOfExpiration.isBefore(minDateOfExpiration) || desiredDateOfExpiration.isAfter(maxDateOfExpiration))
+            return false;
+
+        return true;
     }
 
     private void deleteExpiredSnippets() throws IOException {
@@ -123,10 +140,6 @@ public class SnippetService {
 
             if (entry.getValue().getExpirationDate().isBefore(LocalDateTime.now()))
                 new File(snippetsDirectory + entry.getKey()).delete();
-
-//            System.out.println(entry.getValue().getExpirationDate().isBefore(LocalDateTime.now()));
-//            System.out.println("Now : " + LocalDateTime.now());
-//            System.out.println("Snippet Expiration : " + entry.getValue().getExpirationDate());
         }
     }
 

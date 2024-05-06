@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Override css styles -->
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/styles.css}" href="../static/stylesheets/styles.css">
+</head>
+<body>
+
+<header th:fragment="myHeader-with-navigation">
+<!-- Navigation panel   -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="/search" th:href="@{/search}">
+                    <b class="text-light font-weight-bold" th:if="${insearch}">Search</b>
+                    <div class="text-secondary" th:unless="${insearch}">Search</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/" th:href="@{/}">
+                    <b class="text-light" th:if="${inhome}">Home</b>
+                    <div class="text-secondary" th:unless="${inhome}">Home</div>
+                </a>
+            </li>
+            <li class="nav-item">
+            <a href="/format" th:href="@{/format}">
+                <b class="text-light" th:if="${informat}">Format</b>
+                <div class="text-secondary" th:unless="${informat}">Format</div>
+            </a>
+            </li>
+        </ul>
+    </nav>
+
+<!--  Page header  -->
+    <div class="container-fluid">
+        <h1 th:text="${headertext}">Formatter</h1>
+    </div>
+
+</header>
+
+<footer th:fragment="myFooter">
+    <div class="container mt-3">
+        <hr>
+        <h3>
+            Java Source Code Formatter
+        </h3>
+        <p>
+            This web application was created by Jeremi Lipniacki
+        </p>
+        <img  class="mx-auto d-block" src="../static/images/logo.png" th:src="@{/images/logo.png}" width="20%" height="20%" alt="Polish-Japanese Academy of Information Technology">
+    </div>
+</footer>
+
+</body>
+</html>

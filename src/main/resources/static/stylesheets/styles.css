@@ -1,0 +1,61 @@
+p {
+    text-align: center;
+    font-size: large;
+    margin-top: 10px;
+}
+
+h1 {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    font-size: xx-large;
+}
+
+h3 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: x-large;
+}
+
+body {
+    font-family: Consolas;
+}
+
+.nav-item {
+    font-size: xx-large;
+    margin: 10px 25px;
+}
+
+.btn {
+    margin-top: 20px;
+}
+
+label {
+    margin-top: 10px;
+
+}
+
+hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.container {
+    margin-bottom: 50px;
+}
+.row {
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    /*color: lightgrey;*/
+}
+
+label {
+    text-align: left;
+    font-size: medium;
+    margin-bottom: 10px;
+}

@@ -1,101 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Formatter</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 
-    <style>
-
-        p {
-            text-align: center;
-            font-size: x-large;
-            margin-top: 10px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        body {
-            font-family: Consolas;
-        }
-
-        .nav-item {
-            font-size: xx-large;
-            margin: 20px;
-        }
-
-        .btn {
-            margin-top: 20px;
-        }
-
-        label {
-            margin-top: 10px;
-
-        }
-
-        hr {
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-
-        .container {
-            margin-bottom: 50px;
-        }
-        .row {
-            margin-bottom: 20px;
-        }
-
-        a {
-            text-decoration: none;
-            color: lightgrey;
-        }
-
-
-    </style>
-
-</head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a th:href="@{/search}">Search</a>
-        </li>
-        <li class="nav-item">
-            <a th:href="@{/}">Home</a>
-        </li>
-        <li class="nav-item">
-            <a th:href="@{/format}">Format</a>
-        </li>
-    </ul>
-</nav>
+    <header layout:fragment="header" th:replace="~{fragments :: myHeader-with-navigation(informat=true, headertext='Format your Java source code')}"></header>
 
-<div class="container mt-3">
+    <main layout:fragment="content">
+        <div class="container mt-3">
 
-    <h1>Format your code</h1>
+            <form action="/format" method="post" th:object="${snippet}" >
+                <label for="original-code">Source code:</label>
+                <textarea class="form-control" rows="6" id="original-code" name="originalCode" th:field="${snippet.originalContent}"></textarea>
 
-    <form action="/format" method="post" th:object="${snippet}" >
-        <label for="original-code">Source code:</label>
-        <textarea class="form-control" rows="6" id="original-code" name="originalCode" th:field="${snippet.originalContent}"></textarea>
+                <button name="action" value="format" type="submit" class="btn btn-outline-success btn-lg">Format</button>
+                <button name="action" value ="clear" type="submit" class="btn btn-outline-danger btn-lg">Clear</button>
 
-        <button name="action" value="format" type="submit" class="btn btn-outline-success btn-lg">Format</button>
-        <button name="action" value ="clear" type="submit" class="btn btn-outline-danger btn-lg">Clear</button>
+                <hr>
 
-        <hr>
+                <label for="formatted-code">Preview:</label>
+                <textarea class="form-control" rows="5" id="formatted-code" name="formattedCode" th:text="${snippet.getFormattedContent()}" readonly></textarea>
 
-        <label for="formatted-code">Preview:</label>
-        <textarea class="form-control" rows="5" id="formatted-code" name="formattedCode" th:text="${snippet.getFormattedContent()}" readonly></textarea>
-
-        <button name="action" value="save" type="submit" class="btn btn-outline-primary btn-lg">Save</button>
-    </form>
-</div>
-
+                <button name="action" value="save" type="submit" class="btn btn-outline-primary btn-lg">Save</button>
+            </form>
+        </div>
+    </main>
 
 </body>
 </html>

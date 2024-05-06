@@ -1,7 +1,7 @@
 package jeremi.codeformatter.Controller;
 
 import com.google.googlejavaformat.java.FormatterException;
-import jeremi.codeformatter.Model.Expiration;
+import jeremi.codeformatter.Model.ExpirationDTO;
 import jeremi.codeformatter.Model.SnippetDTO;
 import jeremi.codeformatter.Model.SnippetService;
 import org.springframework.stereotype.Controller;
@@ -60,24 +60,28 @@ public class FormatterController {
 
     @GetMapping("/save")
     public String getSave(Model model){
-        model.addAttribute(new Expiration());
+        model.addAttribute(new ExpirationDTO());
         return "save";
     }
 
     @PostMapping("/save")
-    public RedirectView postSave(Expiration expiration, @RequestParam(name = "snippetId") String id){
+    public RedirectView postSave(ExpirationDTO expiration, @RequestParam(name = "snippetId") String id){
 
-        try {
-            if (snippetService.store(id,expiration))
-                return new RedirectView("search?snippetId="+id);
-            else
-                // Customized error page 2
+        if (snippetService.validateExpiration(expiration)){
+            try {
+                if (snippetService.store(id,expiration))
+                    return new RedirectView("search?snippetId="+id);
+                else
+                    // Customized error page 2
+                    return new RedirectView("error",true,true);
+
+            } catch (IOException e) {
+                // Customized error page 3
                 return new RedirectView("error",true,true);
-
-        } catch (IOException e) {
-            // Customized error page 3
+            }
+        } else
+            // Customized error page 4
             return new RedirectView("error",true,true);
-        }
     }
 
     @GetMapping("/search")
@@ -101,10 +105,10 @@ public class FormatterController {
             if (snippetService.isPresent(id))
                 return new RedirectView("search?snippetId="+id,true,true);
             else
-                // Customized error page 4
+                // Customized error page 5
                 return new RedirectView("error",true,true);
         } catch (IOException e) {
-            // Customized error page 5
+            // Customized error page 6
             return new RedirectView("error",true,true);
         }
 

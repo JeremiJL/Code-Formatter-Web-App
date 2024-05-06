@@ -1,117 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Formatter</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 
-    <style>
-
-        p {
-            text-align: center;
-            font-size: x-large;
-            margin-top: 10px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        body {
-            font-family: Consolas;
-        }
-
-        .nav-item {
-            font-size: xx-large;
-            margin: 20px;
-        }
-
-        .btn {
-            margin-top: 20px;
-        }
-
-        label {
-            margin-top: 10px;
-        }
-
-        hr {
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-
-        .container {
-            margin-bottom: 50px;
-        }
-        .row {
-            margin-bottom: 20px;
-        }
-
-        a {
-            text-decoration: none;
-            color: lightgrey;
-        }
-
-        label {
-            text-align: left;
-            font-size: medium;
-            margin-bottom: 10px;
-        }
-
-
-    </style>
-
-</head>
 <body>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a th:href="@{/search}">Search</a>
-        </li>
-        <li class="nav-item">
-            <a th:href="@{/home}">Home</a>
-        </li>
-        <li class="nav-item">
-            <a th:href="@{/format}">Format</a>
-        </li>
-    </ul>
-</nav>
+    <header layout:fragment="header" th:replace="~{fragments :: myHeader-with-navigation(headertext='Save the formatted code snippet in our app')}"></header>
 
-<div class="container mt-3">
-    <form method="post" action="/save" th:object="${expiration}">
-        <div class="row">
-            <p>Specify expiration time of formatted code snippet in our database</p>
-            <div class="col">
-                <label for="num-days">Number of days</label>
-                    <input type="text" id="num-days" class="form-control" placeholder="Number of days" th:field="${expiration.numDays}">
-            </div>
-            <div class="col">
-                <label for="num-hours">Number of hours</label>
-                <input type="text" id="num-hours" class="form-control" placeholder="Number of hours" th:field="${expiration.numHours}">
-            </div>
-            <div class="col">
-                <label for="num-minutes">Number of minutes</label>
-                <input type="text" id="num-minutes" class="form-control" placeholder="Number of minutes" th:field="${expiration.numMinutes}">
-            </div>
-            <div class="col">
-                <label for="num-seconds">Number of seconds</label>
-                <input type="text" id="num-seconds" class="form-control" placeholder="Number of seconds" th:field="${expiration.numSeconds}">
-            </div>
+    <main layout:fragment="content">
+        <div class="container mt-3">
+            <form method="post" action="/save" th:object="${expirationDTO}">
+                <div class="row">
+                    <p>Specify expiration time of formatted code snippet in our database</p>
+                    <div class="col">
+                        <label for="num-days">Number of days</label>
+                            <input type="text" id="num-days" class="form-control" placeholder="Number of days" th:field="${expirationDTO.numDays}">
+                    </div>
+                    <div class="col">
+                        <label for="num-hours">Number of hours</label>
+                        <input type="text" id="num-hours" class="form-control" placeholder="Number of hours" th:field="${expirationDTO.numHours}">
+                    </div>
+                    <div class="col">
+                        <label for="num-minutes">Number of minutes</label>
+                        <input type="text" id="num-minutes" class="form-control" placeholder="Number of minutes" th:field="${expirationDTO.numMinutes}">
+                    </div>
+                    <div class="col">
+                        <label for="num-seconds">Number of seconds</label>
+                        <input type="text" id="num-seconds" class="form-control" placeholder="Number of seconds" th:field="${expirationDTO.numSeconds}">
+                    </div>
+                </div>
+
+                <label for="snippet-id">Enter snippet id</label>
+                <input id="snippet-id" type="text" class="form-control" placeholder="Snippet id" name="snippetId">
+
+                <button type="submit" class="btn btn-outline-primary btn-lg">Save</button>
+            </form>
         </div>
-
-        <label for="snippet-id">Enter snippet id</label>
-        <input id="snippet-id" type="text" class="form-control" placeholder="Snippet id" name="snippetId">
-
-        <button type="submit" class="btn btn-outline-primary btn-lg">Save</button>
-    </form>
-
-
-
-</div>
+    </main>
 
 </body>
 </html>
