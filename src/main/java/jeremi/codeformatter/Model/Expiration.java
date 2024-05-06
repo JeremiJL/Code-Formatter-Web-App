@@ -8,10 +8,6 @@ public class Expiration {
     private int numSeconds;
 
     public Expiration() {
-        numDays = 0;
-        numHours = 0;
-        numMinutes = 0;
-        numSeconds = 0;
     }
 
     public int getNumDays() {

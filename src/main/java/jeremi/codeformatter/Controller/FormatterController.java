@@ -2,7 +2,7 @@ package jeremi.codeformatter.Controller;
 
 import com.google.googlejavaformat.java.FormatterException;
 import jeremi.codeformatter.Model.Expiration;
-import jeremi.codeformatter.Model.Snippet;
+import jeremi.codeformatter.Model.SnippetDTO;
 import jeremi.codeformatter.Model.SnippetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +31,7 @@ public class FormatterController {
     public String getFormat(Model model){
 
         if (snippetService.getDraft() == null)
-            model.addAttribute("snippet", new Snippet());
+            model.addAttribute("snippet", new SnippetDTO());
         else
             model.addAttribute("snippet", snippetService.getDraft());
 
@@ -39,7 +39,7 @@ public class FormatterController {
     }
 
     @PostMapping("/format")
-    public RedirectView postFormat(@RequestParam(name = "action") String action, Snippet snippet){
+    public RedirectView postFormat(@RequestParam(name = "action") String action, SnippetDTO snippet){
 
         if (action.equals("format")) {
             try {
@@ -65,10 +65,9 @@ public class FormatterController {
     }
 
     @PostMapping("/save")
-    public RedirectView postSave(@RequestParam(name = "snippetId") String id, Expiration expiration){
+    public RedirectView postSave(Expiration expiration, @RequestParam(name = "snippetId") String id){
 
         try {
-
             if (snippetService.store(id,expiration))
                 return new RedirectView("search?snippetId="+id);
             else
@@ -96,7 +95,7 @@ public class FormatterController {
     }
 
     @PostMapping("/search")
-    public RedirectView postSearch(@RequestParam(required = false) String id) {
+    public RedirectView postSearch(@RequestParam(required = false, name = "snippetId") String id) {
 
         try {
             if (snippetService.isPresent(id))

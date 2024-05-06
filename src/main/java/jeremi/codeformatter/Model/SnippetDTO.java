@@ -3,13 +3,13 @@ package jeremi.codeformatter.Model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Snippet implements Serializable {
+public class SnippetDTO implements Serializable {
 
     private String originalContent;
     private String formattedContent;
     private LocalDateTime expirationDate;
 
-    public Snippet() {
+    public SnippetDTO() {
     }
 
     public String getOriginalContent() {
