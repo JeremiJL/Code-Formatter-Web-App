@@ -44,6 +44,20 @@
 
 </header>
 
+
+<error th:fragment="myError">
+    <div id="errorComponent" class="container">
+        <div class="card bg-warning">
+            <div class="card-body">
+                <h4 class="card-title" th:text="${errorTitle}">The error title</h4>
+                <p class="card-text" th:text="${errorText}">Oops error!</p>
+                <button href="#" th:href="@{/}" class="btn-close" onclick="hideComponent('errorComponent'); return false;"></button>
+            </div>
+        </div>
+    </div>
+</error>
+
+
 <footer th:fragment="myFooter">
     <div class="container mt-3">
         <hr>
@@ -58,4 +72,13 @@
 </footer>
 
 </body>
+
+<script>
+
+    function hideComponent(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+</script>
+
 </html>

@@ -48,7 +48,7 @@ public class FormatterController {
                 return new RedirectView("/format",true,true);
             } catch (FormatterException e) {
                 // Customized error page 1
-                return new RedirectView("/error",true,true);
+                return new RedirectView("/error?errorId=1",true,true);
             }
         } else if (action.equals("clear")) {
             snippetService.setDraft(null);
@@ -56,6 +56,12 @@ public class FormatterController {
         } else {
             return new RedirectView("/save",true,true);
         }
+    }
+
+    @GetMapping("/error")
+    public String getError(Model model, @RequestParam(name = "errorId", defaultValue = "0") String errorId){
+        model.addAttribute("errorId", errorId);
+        return "error";
     }
 
     @GetMapping("/save")
@@ -73,15 +79,15 @@ public class FormatterController {
                     return new RedirectView("search?snippetId="+id);
                 else
                     // Customized error page 2
-                    return new RedirectView("error",true,true);
+                    return new RedirectView("error?errorId=2",true,true);
 
             } catch (IOException e) {
                 // Customized error page 3
-                return new RedirectView("error",true,true);
+                return new RedirectView("error?errorId=3",true,true);
             }
         } else
             // Customized error page 4
-            return new RedirectView("error",true,true);
+            return new RedirectView("error?errorId=4",true,true);
     }
 
     @GetMapping("/search")
@@ -106,10 +112,10 @@ public class FormatterController {
                 return new RedirectView("search?snippetId="+id,true,true);
             else
                 // Customized error page 5
-                return new RedirectView("error",true,true);
+                return new RedirectView("error?errorId=5",true,true);
         } catch (IOException e) {
             // Customized error page 6
-            return new RedirectView("error",true,true);
+            return new RedirectView("error?errorId=6",true,true);
         }
 
     }

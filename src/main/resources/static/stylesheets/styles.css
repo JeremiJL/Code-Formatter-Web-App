@@ -19,6 +19,13 @@ h3 {
     font-size: x-large;
 }
 
+h4 {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: large;
+}
+
 body {
     font-family: Consolas;
 }
@@ -58,4 +65,8 @@ label {
     text-align: left;
     font-size: medium;
     margin-bottom: 10px;
+}
+
+.card-body {
+    text-align: center;
 }
