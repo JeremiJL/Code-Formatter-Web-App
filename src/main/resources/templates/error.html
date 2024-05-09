@@ -9,26 +9,26 @@
 
     <main layout:fragment="content">
         <div class="container mt-3">
-            <p th:if="${errorId == '0'}">
+            <p th:if="${errorId == 0}">
                 Undefined error! Try again.
             </p>
-            <p th:if="${errorId == '1'}">
+            <p th:if="${errorId == 1}">
                 Can not format this source code!
                 Remember to submit a complete, compilable Java class.
             </p>
-            <p th:if="${errorId == '2'}">
+            <p th:if="${errorId == 2}">
                 Snippet with following ID is already stored in application.
             </p>
-            <p th:if="${errorId == '3'}">
+            <p th:if="${errorId == 3}">
                 Serialization error. Sorry for inconveniences.
             </p>
-            <p th:if="${errorId == '4'}">
+            <p th:if="${errorId == 4}">
                 Invalid expiration period of code snippet! Expiration period has to be longer than 10 seconds, and shorter than 90 days.
             </p>
-            <p th:if="${errorId == '5'}">
+            <p th:if="${errorId == 5}">
                 Snippet with following ID is not stored in our application.
             </p>
-            <p th:if="${errorId == '6'}">
+            <p th:if="${errorId == 6}">
                 I/O Exception. Sorry for inconveniences.
             </p>
         </div>

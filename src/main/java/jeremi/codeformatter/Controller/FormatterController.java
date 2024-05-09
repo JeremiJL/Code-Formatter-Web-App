@@ -59,8 +59,8 @@ public class FormatterController {
     }
 
     @GetMapping("/error")
-    public String getError(Model model, @RequestParam(name = "errorId", defaultValue = "0") String errorId){
-        model.addAttribute("errorId", errorId);
+    public String getError(Model model, @RequestParam(required = false, name = "errorId", defaultValue = "0") String errorId){
+        model.addAttribute("errorId",Integer.parseInt(errorId));
         return "error";
     }
 

@@ -9,7 +9,7 @@
 
     <main layout:fragment="content">
         <div class="container mt-3">
-            <form method="post" action="/save" th:object="${expirationDTO}">
+            <form method="post" th:action="@{/save}" th:object="${expirationDTO}">
                 <div class="row">
                     <p>Specify expiration time of formatted code snippet in our database</p>
                     <div class="col">

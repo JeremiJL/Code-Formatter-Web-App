@@ -10,7 +10,7 @@
     <main layout:fragment="content">
         <div class="container mt-3">
 
-            <form action="/format" method="post" th:object="${snippet}" >
+            <form th:action="@{/format}" method="post" th:object="${snippet}" >
                 <label for="original-code">Source code:</label>
                 <textarea class="form-control" rows="6" id="original-code" name="originalCode" th:field="${snippet.originalContent}"></textarea>
 
